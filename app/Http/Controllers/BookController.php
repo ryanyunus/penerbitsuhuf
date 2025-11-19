@@ -21,7 +21,7 @@ class BookController extends Controller
         return view('admin.books.create');
     }
 
-  public function store(Request $request)
+ public function store(Request $request)
     {
         $data = $request->validate([
             'title'       => 'required|string|max:255',
@@ -30,26 +30,24 @@ class BookController extends Controller
             'cover'       => 'nullable|image|max:2048',
         ]);
 
-        // simpan langsung ke folder public/covers
         if ($request->hasFile('cover')) {
             $file = $request->file('cover');
             $filename = time().'_'.$file->getClientOriginalName();
 
-            // ini akan menyimpan ke public_html/covers di hosting
+            // Simpan secara FISIK ke folder: project_root/public/covers
             $file->move(public_path('covers'), $filename);
 
-            // yang disimpan di DB hanya "covers/nama-file"
-            $data['cover'] = 'covers/'.$filename;
+            // Simpan ke DB path YANG BISA DIAKSES via URL: /public/covers/...
+            $data['cover'] = 'public/covers/'.$filename;
         }
 
-        $data['slug'] = Str::slug($data['title']);
+        $data['slug'] = \Illuminate\Support\Str::slug($data['title']);
 
         Book::create($data);
 
         return redirect()->route('books.index')
             ->with('success', 'Buku berhasil ditambahkan.');
     }
-
 
 
     public function edit(Book $book)
@@ -70,17 +68,18 @@ class BookController extends Controller
         if ($request->hasFile('cover')) {
             $file = $request->file('cover');
             $filename = time().'_'.$file->getClientOriginalName();
+
             $file->move(public_path('covers'), $filename);
 
-            // optional: hapus cover lama kalau ada
-            if ($book->cover && file_exists(public_path($book->cover))) {
-                @unlink(public_path($book->cover));
+            // hapus cover lama kalau ada
+            if ($book->cover && file_exists(public_path(str_replace('public/', '', $book->cover)))) {
+                @unlink(public_path(str_replace('public/', '', $book->cover)));
             }
 
-            $data['cover'] = 'covers/'.$filename;
+            $data['cover'] = 'public/covers/'.$filename;
         }
 
-        $data['slug'] = Str::slug($data['title']);
+        $data['slug'] = \Illuminate\Support\Str::slug($data['title']);
 
         $book->update($data);
 
