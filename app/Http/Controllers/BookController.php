@@ -21,7 +21,7 @@ class BookController extends Controller
         return view('admin.books.create');
     }
 
-   public function store(Request $request)
+  public function store(Request $request)
     {
         $data = $request->validate([
             'title'       => 'required|string|max:255',
@@ -30,16 +30,16 @@ class BookController extends Controller
             'cover'       => 'nullable|image|max:2048',
         ]);
 
-        // Simpan cover langsung ke public/covers
+        // simpan langsung ke folder public/covers
         if ($request->hasFile('cover')) {
             $file = $request->file('cover');
-            $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $filename = time().'_'.$file->getClientOriginalName();
 
-            // Ini menyimpan ke folder public/covers
+            // ini akan menyimpan ke public_html/covers di hosting
             $file->move(public_path('covers'), $filename);
 
-            // Simpan path relatif yang nanti dipakai di asset()
-            $data['cover'] = 'covers/' . $filename;
+            // yang disimpan di DB hanya "covers/nama-file"
+            $data['cover'] = 'covers/'.$filename;
         }
 
         $data['slug'] = Str::slug($data['title']);
@@ -49,6 +49,7 @@ class BookController extends Controller
         return redirect()->route('books.index')
             ->with('success', 'Buku berhasil ditambahkan.');
     }
+
 
 
     public function edit(Book $book)
@@ -67,17 +68,16 @@ class BookController extends Controller
         ]);
 
         if ($request->hasFile('cover')) {
-            // Hapus cover lama kalau ada
+            $file = $request->file('cover');
+            $filename = time().'_'.$file->getClientOriginalName();
+            $file->move(public_path('covers'), $filename);
+
+            // optional: hapus cover lama kalau ada
             if ($book->cover && file_exists(public_path($book->cover))) {
                 @unlink(public_path($book->cover));
             }
 
-            $file = $request->file('cover');
-            $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-
-            $file->move(public_path('covers'), $filename);
-
-            $data['cover'] = 'covers/' . $filename;
+            $data['cover'] = 'covers/'.$filename;
         }
 
         $data['slug'] = Str::slug($data['title']);
