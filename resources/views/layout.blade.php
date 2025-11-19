@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="utf-8">
-    <title>@yield('title', 'DivaPress Blog')</title>
+    <title>@yield('title', 'Penerbit Suhuf')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {{-- Bootstrap CSS --}}
