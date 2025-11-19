@@ -24,7 +24,7 @@
                 <div class="col-6 col-md-3">
                     <div class="card h-100 shadow-sm">
                         @if($book->cover)
-                            <img src="{{ asset('storage/'.$book->cover) }}"
+                            <img src="{{ asset('public/storage/'.$book->cover) }}"
                                  class="card-img-top"
                                  alt="{{ $book->title }}"
                                  style="height: 220px; object-fit: cover;">

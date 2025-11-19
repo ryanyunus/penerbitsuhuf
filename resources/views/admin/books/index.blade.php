@@ -31,7 +31,7 @@
                     <td>{{ $book->author }}</td>
                     <td>
                         @if($book->cover)
-                            <img src="{{ asset('public/storage/'.$book->cover) }}"
+                            <img src="{{ asset('storage/'.$book->cover) }}"
                                  alt="{{ $book->title }}"
                                  class="img-thumbnail"
                                  style="max-height: 80px">
