@@ -85,10 +85,9 @@
             {{-- <button class="btn btn-success" disabled>
                 Checkout (coming soon)
             </button> --}}
-
-                        @php
-                // GANTI dengan nomor WhatsApp kamu (tanpa +)
-                $waNumber = '62812xxxxxxxx';
+            @php
+                // GANTI dengan nomor WA, TANPA spasi dan tanda +
+                $waNumber = '6289671743005';
 
                 $lines = ["Halo, saya ingin memesan buku dari Penerbit Suhuf:"];
 
@@ -97,6 +96,8 @@
                 }
 
                 $text = urlencode(implode("\n", $lines));
+
+                // format link resmi WhatsApp
                 $whatsappUrl = "https://wa.me/{$waNumber}?text={$text}";
             @endphp
 
