@@ -21,7 +21,7 @@ class BookController extends Controller
         return view('admin.books.create');
     }
 
-    public function store(Request $request)
+   public function store(Request $request)
     {
         $data = $request->validate([
             'title'       => 'required|string|max:255',
@@ -30,8 +30,16 @@ class BookController extends Controller
             'cover'       => 'nullable|image|max:2048',
         ]);
 
+        // Simpan cover langsung ke public/covers
         if ($request->hasFile('cover')) {
-            $data['cover'] = $request->file('cover')->store('covers', 'public');
+            $file = $request->file('cover');
+            $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+
+            // Ini menyimpan ke folder public/covers
+            $file->move(public_path('covers'), $filename);
+
+            // Simpan path relatif yang nanti dipakai di asset()
+            $data['cover'] = 'covers/' . $filename;
         }
 
         $data['slug'] = Str::slug($data['title']);
@@ -41,6 +49,7 @@ class BookController extends Controller
         return redirect()->route('books.index')
             ->with('success', 'Buku berhasil ditambahkan.');
     }
+
 
     public function edit(Book $book)
     {
@@ -58,7 +67,17 @@ class BookController extends Controller
         ]);
 
         if ($request->hasFile('cover')) {
-            $data['cover'] = $request->file('cover')->store('covers', 'public');
+            // Hapus cover lama kalau ada
+            if ($book->cover && file_exists(public_path($book->cover))) {
+                @unlink(public_path($book->cover));
+            }
+
+            $file = $request->file('cover');
+            $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+
+            $file->move(public_path('covers'), $filename);
+
+            $data['cover'] = 'covers/' . $filename;
         }
 
         $data['slug'] = Str::slug($data['title']);
