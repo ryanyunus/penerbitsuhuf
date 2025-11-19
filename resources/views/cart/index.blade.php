@@ -40,14 +40,23 @@
                 <tbody>
                     @foreach($cart as $item)
                         <tr>
-                            <td>
+                            {{-- <td>
                                 @if($item['cover'])
                                     <img src="{{ asset('storage/'.$item['cover']) }}"
                                          alt="{{ $item['title'] }}"
                                          class="img-thumbnail"
                                          style="max-height: 70px;">
                                 @endif
+                            </td> --}}
+                            <td>
+                                @if(!empty($item['cover']))
+                                    <img src="{{ asset($item['cover']) }}"
+                                        alt="{{ $item['title'] }}"
+                                        style="max-height: 80px"
+                                        class="img-thumbnail">
+                                @endif
                             </td>
+
                             <td>
                                 <a href="{{ route('books.front.show', $item['slug']) }}">
                                     {{ $item['title'] }}
@@ -73,9 +82,28 @@
 
         {{-- Tombol checkout palsu dulu aja --}}
         <div class="mt-3">
-            <button class="btn btn-success" disabled>
+            {{-- <button class="btn btn-success" disabled>
                 Checkout (coming soon)
-            </button>
+            </button> --}}
+
+                        @php
+                // GANTI dengan nomor WhatsApp kamu (tanpa +)
+                $waNumber = '62812xxxxxxxx';
+
+                $lines = ["Halo, saya ingin memesan buku dari Penerbit Suhuf:"];
+
+                foreach($cart as $item) {
+                    $lines[] = "- {$item['title']} (qty: {$item['qty']})";
+                }
+
+                $text = urlencode(implode("\n", $lines));
+                $whatsappUrl = "https://wa.me/{$waNumber}?text={$text}";
+            @endphp
+
+            <a href="{{ $whatsappUrl }}" target="_blank" class="btn btn-success">
+                Checkout via WhatsApp
+            </a>
+
         </div>
     @endif
 </div>
