@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-4 mb-3">
             @if($book->cover)
-                <img src="{{ asset('storage/'.$book->cover) }}"
+                <img src="{{ asset('public/storage/'.$book->cover) }}"
                      class="img-fluid rounded shadow-sm"
                      alt="{{ $book->title }}">
             @endif
