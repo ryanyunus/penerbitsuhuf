@@ -7,7 +7,7 @@
     <h2 class="mb-3">Buku Terbaru</h2>
 
     <div class="row mb-4">
-        {{-- <div class="col-md-8">
+        <div class="col-md-8">
             <form class="input-group" method="GET" action="{{ route('books.front.index') }}">
                 <input type="text"
                        name="q"
@@ -16,7 +16,7 @@
                        value="{{ request('q') }}">
                 <button class="btn btn-danger">Cari</button>
             </form>
-        </div> --}}
+        </div>
         <div class="col-md-4 mt-2 mt-md-0">
             <select name="kategori" class="form-select"
                     onchange="this.form.submit()" form="kategoriForm">

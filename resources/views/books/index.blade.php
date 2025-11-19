@@ -6,12 +6,12 @@
         <h3 class="mb-0">Katalog Buku</h3>
 
         {{-- Search kecil tambahan (opsional, boleh dihapus karena navbar sudah ada) --}}
-        <form class="d-flex" action="{{ route('books.front.index') }}" method="GET">
+        {{-- <form class="d-flex" action="{{ route('books.front.index') }}" method="GET">
             <input type="text" name="q" class="form-control form-control-sm me-2"
                    placeholder="Cari buku..."
                    value="{{ $q ?? '' }}">
             <button class="btn btn-success btn-sm">Cari</button>
-        </form>
+        </form> --}}
     </div>
 
     @if(session('success'))

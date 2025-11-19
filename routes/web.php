@@ -63,3 +63,9 @@ Route::get('/keranjang', [CartController::class, 'index'])->name('cart.index');
 Route::post('/keranjang/tambah/{book}', [CartController::class, 'add'])->name('cart.add');
 Route::post('/keranjang/hapus/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/keranjang/kosongkan', [CartController::class, 'clear'])->name('cart.clear');
+
+//tentang kami
+Route::get('/tentang-kami', function () {
+    return view('pages.about');
+})->name('about');
+
