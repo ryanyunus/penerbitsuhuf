@@ -26,7 +26,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
     <div class="container">
         <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ url('/') }}">
-            <img src="{{ asset('logo.png') }}" alt="DivaPress" height="100" class="me-2">
+            <img src="{{ asset('public/logo.png') }}" alt="DivaPress" height="100" class="me-2">
         </a>
 
 
