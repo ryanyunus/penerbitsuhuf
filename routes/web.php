@@ -10,10 +10,12 @@ use App\Http\Controllers\FrontendBookController;
 use App\Http\Controllers\CartController;
 
 
-// Redirect root ke login
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+// // Redirect root ke login
+// Route::get('/', function () {
+//     return redirect()->route('login');
+// });
+
+Route::get('/', [FrontendBookController::class, 'index'])->name('home');
 
 // AUTH
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
