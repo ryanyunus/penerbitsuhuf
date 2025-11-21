@@ -36,26 +36,47 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarMain">
+            
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                {{-- <li class="nav-item">
-                    <a class="nav-link {{ request()->is('blog*') ? 'active' : '' }}"
-                       href="{{ route('blog.index') }}">
-                        Artikel
-                    </a>
-                </li> --}}
+                {{-- Halaman utama katalog buku --}}
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('buku*') ? 'active' : '' }}"
-                       href="{{ route('books.front.index') }}">
+                    <a class="nav-link {{ request()->is('buku') ? 'active' : '' }}"
+                    href="{{ route('books.front.index') }}">
                         Buku
                     </a>
                 </li>
+
+                {{-- Filter (sementara masih ke /buku juga) --}}
                 <li class="nav-item">
-                <a class="nav-link {{ request()->is('tentang-kami') ? 'active' : '' }}"
-                href="{{ route('about') }}">
-                    Tentang Kami
-                </a>
-            </li>
+                    <a class="nav-link"
+                    href="{{ route('books.front.index') }}?filter=terbaru">
+                        Terbaru
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                    href="{{ route('books.front.index') }}?filter=terlaris">
+                        Terlaris
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                    href="{{ route('books.front.index') }}?filter=kategori">
+                        Kategori
+                    </a>
+                </li>
+
+                {{-- Tentang kami --}}
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('tentang-kami') ? 'active' : '' }}"
+                    href="{{ route('about') }}">
+                        Tentang Kami
+                    </a>
+                </li>
             </ul>
+
 
             {{-- Search buku --}}
             <form class="d-flex me-3" action="{{ route('books.front.index') }}" method="GET">
