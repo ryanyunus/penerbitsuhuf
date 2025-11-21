@@ -25,7 +25,7 @@ class CartController extends Controller
             $cart[$book->id] = [
                 'id'     => $book->id,
                 'title'  => $book->title,
-                'author' => $book->author,s
+                'author' => $book->author,
                 'cover'  => $book->cover,
                 'slug'   => $book->slug,
                 'qty'    => 1,
