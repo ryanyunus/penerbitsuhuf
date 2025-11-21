@@ -10,7 +10,7 @@ class FrontendBookController extends Controller
     public function index(Request $request)
     {
         $q = $request->query('q');
-
+        $sort = $request->query('sort', 'terbaru');
         $booksQuery = Book::query();
 
         if ($q) {
